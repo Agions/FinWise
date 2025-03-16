@@ -1,0 +1,51 @@
+version: '3'
+
+services:
+  # 数据库服务
+  mysql:
+    image: mysql:8.0
+    container_name: finwise-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: finwise
+      MYSQL_USER: finwise
+      MYSQL_PASSWORD: finwisepwd
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    networks:
+      - finwise-network
+
+  # API服务
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: finwise-api
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+    environment:
+      - TZ=Asia/Shanghai
+      - FINWISE_DB_HOST=mysql
+      - FINWISE_DB_PORT=3306
+      - FINWISE_DB_USER=finwise
+      - FINWISE_DB_PASSWORD=finwisepwd
+      - FINWISE_DB_NAME=finwise
+    volumes:
+      - api_logs:/app/logs
+    networks:
+      - finwise-network
+
+volumes:
+  mysql_data:
+  api_logs:
+
+networks:
+  finwise-network:
+    driver: bridge 

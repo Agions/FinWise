@@ -1,0 +1,50 @@
+# 编译生成的二进制文件
+/finwise
+/blog
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# 测试二进制文件
+*.test
+*.out
+
+# 日志文件
+/logs/
+*.log
+
+# 临时文件
+*.tmp
+lastupdate.tmp
+
+# IDE和编辑器文件
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# 依赖目录
+/vendor/
+
+# 敏感配置文件(如包含密码的本地开发配置)
+.env
+*.local.conf
+
+# 编译缓存
+.cache/
+
+# Go工作区文件
+go.work
+
+# Docker相关
+.dockerignore
+
+# 数据库文件
+*.db
+*.sqlite
+
+# 上传的文件
+/uploads/ 
